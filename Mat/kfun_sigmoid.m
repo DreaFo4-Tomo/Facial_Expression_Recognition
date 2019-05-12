@@ -1,0 +1,11 @@
+clear; close all; clc;
+load fisheriris; 
+inds = ~strcmp(species,'setosa');
+X = meas(inds,3:4);
+y = species(inds);
+[optSigma, B_bar, W_bar] = sigmaSelection(X,y,'w1');
+svmtrain(X,y,'kernel_function','rbf','rbf_sigma',optSigma,'showplot',true);
+title(['Selected sigma = ' num2str(optSigma)]);
+figure;
+svmtrain(X,y,'kernel_function','rbf','rbf_sigma',0.2,'showplot',true);
+title('Sigma = 0.2');
